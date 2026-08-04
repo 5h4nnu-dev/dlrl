@@ -1,0 +1,352 @@
+{
+  "target": "http://127.0.0.1:8002",
+  "method": "request+response+behavior analysis",
+  "endpoints": [
+    {
+      "endpoint": "/api/health",
+      "status": 200,
+      "alive": true,
+      "ai_confidence": 26,
+      "type": "Chat",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "body_messages",
+          "weight": 14,
+          "detail": "body has messages[] with role/content"
+        },
+        {
+          "signal": "body_llm_fields",
+          "weight": 12,
+          "detail": "body has LLM params: messages, model, stream, temperature"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 200
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 3
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/chat",
+      "status": 200,
+      "alive": true,
+      "ai_confidence": 1,
+      "type": "Chat",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "path_hint",
+          "weight": 12,
+          "detail": "path looks AI-ish: /api/chat"
+        },
+        {
+          "signal": "body_messages",
+          "weight": 14,
+          "detail": "body has messages[] with role/content"
+        },
+        {
+          "signal": "body_llm_fields",
+          "weight": 12,
+          "detail": "body has LLM params: messages, model, stream, temperature"
+        },
+        {
+          "signal": "generic_content",
+          "weight": 4,
+          "detail": "top-level text field present"
+        },
+        {
+          "signal": "echo",
+          "weight": -25,
+          "detail": "reply repeats the input back verbatim"
+        },
+        {
+          "signal": "deterministic",
+          "weight": -10,
+          "detail": "identical calls \u2192 identical reply (ratio 1.00)"
+        },
+        {
+          "signal": "stream_ignored",
+          "weight": -6,
+          "detail": "asked for stream:true but got plain JSON"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 200,
+          "total_ms": 4
+        },
+        "stream": {
+          "status": 200,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/completions",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 3
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/chat/stream",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 2
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/v1/chat/completions",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 3
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/generate",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 4
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/ask",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 1
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/search",
+      "status": 200,
+      "alive": true,
+      "ai_confidence": 26,
+      "type": "Chat",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "body_messages",
+          "weight": 14,
+          "detail": "body has messages[] with role/content"
+        },
+        {
+          "signal": "body_llm_fields",
+          "weight": 12,
+          "detail": "body has LLM params: messages, model, stream, temperature"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 200
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 2
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/ws",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 2
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    }
+  ]
+}

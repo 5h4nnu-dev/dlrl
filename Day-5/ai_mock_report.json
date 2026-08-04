@@ -1,0 +1,560 @@
+{
+  "target": "http://127.0.0.1:8001",
+  "method": "request+response+behavior analysis",
+  "endpoints": [
+    {
+      "endpoint": "/api/health",
+      "status": 200,
+      "alive": true,
+      "ai_confidence": 26,
+      "type": "Chat",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "body_messages",
+          "weight": 14,
+          "detail": "body has messages[] with role/content"
+        },
+        {
+          "signal": "body_llm_fields",
+          "weight": 12,
+          "detail": "body has LLM params: messages, model, stream, temperature"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 200
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 2
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/chat",
+      "status": 200,
+      "alive": true,
+      "ai_confidence": 100,
+      "type": "Streaming Chat",
+      "streaming": true,
+      "verdict": "AI",
+      "signals": [
+        {
+          "signal": "path_hint",
+          "weight": 12,
+          "detail": "path looks AI-ish: /api/chat"
+        },
+        {
+          "signal": "body_messages",
+          "weight": 14,
+          "detail": "body has messages[] with role/content"
+        },
+        {
+          "signal": "body_llm_fields",
+          "weight": 12,
+          "detail": "body has LLM params: messages, model, stream, temperature"
+        },
+        {
+          "signal": "openai_chat_shape",
+          "weight": 18,
+          "detail": "choices[0].message.content present"
+        },
+        {
+          "signal": "id_marker",
+          "weight": 5,
+          "detail": "id=chatcmpl-mock-9926..."
+        },
+        {
+          "signal": "model_field",
+          "weight": 4,
+          "detail": "model=gpt-test"
+        },
+        {
+          "signal": "object_field",
+          "weight": 4,
+          "detail": "object=chat.completion"
+        },
+        {
+          "signal": "usage_tokens",
+          "weight": 8,
+          "detail": "usage token counts present"
+        },
+        {
+          "signal": "finish_reason",
+          "weight": 6,
+          "detail": "finish_reason=stop"
+        },
+        {
+          "signal": "llm_phrases",
+          "weight": 8,
+          "detail": "LLM phrasing: as an ai"
+        },
+        {
+          "signal": "verbose_text",
+          "weight": 12,
+          "detail": "24 words, multi-sentence reply"
+        },
+        {
+          "signal": "id_marker",
+          "weight": 5,
+          "detail": "id=chatcmpl-mock-1217..."
+        },
+        {
+          "signal": "model_field",
+          "weight": 4,
+          "detail": "model=mock-llm-7b"
+        },
+        {
+          "signal": "llm_phrases",
+          "weight": 8,
+          "detail": "LLM phrasing: happy to help"
+        },
+        {
+          "signal": "verbose_text",
+          "weight": 12,
+          "detail": "19 words, multi-sentence reply"
+        },
+        {
+          "signal": "sse",
+          "weight": 15,
+          "detail": "content-type: text/event-stream"
+        },
+        {
+          "signal": "openai_stream_shape",
+          "weight": 10,
+          "detail": "SSE event shape=delta"
+        },
+        {
+          "signal": "finish_reason",
+          "weight": 6,
+          "detail": "SSE stream terminated with [DONE]"
+        },
+        {
+          "signal": "variance",
+          "weight": 8,
+          "detail": "identical calls \u2192 different replies (ratio 0.42)"
+        },
+        {
+          "signal": "stream_chunks",
+          "weight": 10,
+          "detail": "17 chunks over 680 ms"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 200,
+          "total_ms": 249
+        },
+        "stream": {
+          "status": 200,
+          "chunks": 17,
+          "content_type": "text/event-stream"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/completions",
+      "status": 200,
+      "alive": true,
+      "ai_confidence": 100,
+      "type": "Completion",
+      "streaming": false,
+      "verdict": "AI",
+      "signals": [
+        {
+          "signal": "path_hint",
+          "weight": 12,
+          "detail": "path looks AI-ish: /api/completions"
+        },
+        {
+          "signal": "body_messages",
+          "weight": 14,
+          "detail": "body has messages[] with role/content"
+        },
+        {
+          "signal": "body_llm_fields",
+          "weight": 12,
+          "detail": "body has LLM params: messages, model, stream, temperature"
+        },
+        {
+          "signal": "openai_text_shape",
+          "weight": 14,
+          "detail": "choices[0].text present"
+        },
+        {
+          "signal": "id_marker",
+          "weight": 5,
+          "detail": "id=cmpl-mock-6884..."
+        },
+        {
+          "signal": "model_field",
+          "weight": 4,
+          "detail": "model=gpt-test"
+        },
+        {
+          "signal": "object_field",
+          "weight": 4,
+          "detail": "object=text_completion"
+        },
+        {
+          "signal": "usage_tokens",
+          "weight": 8,
+          "detail": "usage token counts present"
+        },
+        {
+          "signal": "finish_reason",
+          "weight": 6,
+          "detail": "finish_reason=length"
+        },
+        {
+          "signal": "id_marker",
+          "weight": 5,
+          "detail": "id=cmpl-mock-5529..."
+        },
+        {
+          "signal": "model_field",
+          "weight": 4,
+          "detail": "model=mock-llm-7b"
+        },
+        {
+          "signal": "llm_phrases",
+          "weight": 8,
+          "detail": "LLM phrasing: as an ai, let me know if"
+        },
+        {
+          "signal": "verbose_text",
+          "weight": 12,
+          "detail": "25 words, multi-sentence reply"
+        },
+        {
+          "signal": "id_marker",
+          "weight": 5,
+          "detail": "id=cmpl-mock-7613..."
+        },
+        {
+          "signal": "verbose_text",
+          "weight": 12,
+          "detail": "20 words, multi-sentence reply"
+        },
+        {
+          "signal": "variance",
+          "weight": 8,
+          "detail": "identical calls \u2192 different replies (ratio 0.38)"
+        },
+        {
+          "signal": "stream_ignored",
+          "weight": -6,
+          "detail": "asked for stream:true but got plain JSON"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 200,
+          "total_ms": 115
+        },
+        "stream": {
+          "status": 200,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/chat/stream",
+      "status": 200,
+      "alive": true,
+      "ai_confidence": 84,
+      "type": "Streaming Chat",
+      "streaming": true,
+      "verdict": "AI",
+      "signals": [
+        {
+          "signal": "path_hint",
+          "weight": 12,
+          "detail": "path looks AI-ish: /api/chat/stream"
+        },
+        {
+          "signal": "body_messages",
+          "weight": 14,
+          "detail": "body has messages[] with role/content"
+        },
+        {
+          "signal": "body_llm_fields",
+          "weight": 12,
+          "detail": "body has LLM params: messages, model, stream, temperature"
+        },
+        {
+          "signal": "sse",
+          "weight": 15,
+          "detail": "content-type: text/event-stream"
+        },
+        {
+          "signal": "openai_stream_shape",
+          "weight": 10,
+          "detail": "SSE event shape=delta"
+        },
+        {
+          "signal": "finish_reason",
+          "weight": 6,
+          "detail": "SSE stream terminated with [DONE]"
+        },
+        {
+          "signal": "latency",
+          "weight": 5,
+          "detail": "generation-like latency: 839 ms"
+        },
+        {
+          "signal": "stream_chunks",
+          "weight": 10,
+          "detail": "24 chunks over 1041 ms"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 200,
+          "total_ms": 839
+        },
+        "stream": {
+          "status": 200,
+          "chunks": 24,
+          "content_type": "text/event-stream"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/v1/chat/completions",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 1
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/generate",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 1
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/ask",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 1
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/api/search",
+      "status": 404,
+      "alive": false,
+      "ai_confidence": 0,
+      "type": "Other",
+      "streaming": false,
+      "verdict": "Not AI",
+      "signals": [
+        {
+          "signal": "not_found",
+          "weight": 0,
+          "detail": "endpoint does not respond to any probe"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 6
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": false,
+          "replies": []
+        }
+      }
+    },
+    {
+      "endpoint": "/ws",
+      "status": 101,
+      "alive": true,
+      "ai_confidence": 78,
+      "type": "Chat",
+      "streaming": false,
+      "verdict": "AI",
+      "signals": [
+        {
+          "signal": "body_messages",
+          "weight": 14,
+          "detail": "body has messages[] with role/content"
+        },
+        {
+          "signal": "body_llm_fields",
+          "weight": 12,
+          "detail": "body has LLM params: messages, model, stream, temperature"
+        },
+        {
+          "signal": "ws_upgraded",
+          "weight": 14,
+          "detail": "WebSocket handshake succeeded (101)"
+        },
+        {
+          "signal": "ws_reply",
+          "weight": 10,
+          "detail": "got 2 text replies over WS"
+        },
+        {
+          "signal": "llm_phrases",
+          "weight": 8,
+          "detail": "LLM phrasing: as an ai, hope that helps, here's what i think"
+        },
+        {
+          "signal": "verbose_text",
+          "weight": 12,
+          "detail": "40 words, multi-sentence reply"
+        },
+        {
+          "signal": "variance",
+          "weight": 8,
+          "detail": "WS replies differ (ratio 0.39)"
+        }
+      ],
+      "evidence": {
+        "get": {
+          "status": 404
+        },
+        "chat": {
+          "status": 404,
+          "total_ms": 1
+        },
+        "stream": {
+          "status": 404,
+          "chunks": 1,
+          "content_type": "application/json"
+        },
+        "ws": {
+          "upgraded": true,
+          "replies": [
+            "Here's what I think: Regarding user experience: consistency and clear structure go a long way. That should get you started.",
+            "As an AI, I can tell you that Regarding user experience: a balanced approach usually works best. Hope that helps!"
+          ]
+        }
+      }
+    }
+  ]
+}
