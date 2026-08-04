@@ -1,0 +1,81 @@
+[
+  {
+    "id": "fp-001",
+    "target": "http://127.0.0.1:8002",
+    "endpoint": "/api/chat",
+    "status": "confirmed",
+    "reason": "manual review: plain REST endpoints, not LLMs",
+    "reasons": [
+      "echo reply: server parrots the probe back (rule-based, not an LLM)",
+      "deterministic responses with no AI response evidence",
+      "stream:true ignored \u2014 plain JSON, no AI response evidence"
+    ],
+    "confidence": 1,
+    "signals": [
+      "path_hint",
+      "body_messages",
+      "body_llm_fields",
+      "generic_content",
+      "echo",
+      "deterministic",
+      "stream_ignored"
+    ],
+    "created": "2026-08-04T08:44:25+00:00",
+    "last_seen": "2026-08-04T08:44:25+00:00",
+    "confirmed_at": "2026-08-04T08:44:32+00:00"
+  },
+  {
+    "id": "fp-002",
+    "target": "http://127.0.0.1:8002",
+    "endpoint": "/api/health",
+    "status": "confirmed",
+    "reason": "manual review: plain REST endpoints, not LLMs",
+    "reasons": [
+      "flagged on request-side hints only, no response evidence"
+    ],
+    "confidence": 26,
+    "signals": [
+      "body_messages",
+      "body_llm_fields"
+    ],
+    "created": "2026-08-04T08:44:25+00:00",
+    "last_seen": "2026-08-04T08:44:25+00:00",
+    "confirmed_at": "2026-08-04T08:44:32+00:00"
+  },
+  {
+    "id": "fp-003",
+    "target": "http://127.0.0.1:8002",
+    "endpoint": "/api/search",
+    "status": "confirmed",
+    "reason": "manual review: plain REST endpoints, not LLMs",
+    "reasons": [
+      "flagged on request-side hints only, no response evidence"
+    ],
+    "confidence": 26,
+    "signals": [
+      "body_messages",
+      "body_llm_fields"
+    ],
+    "created": "2026-08-04T08:44:25+00:00",
+    "last_seen": "2026-08-04T08:44:25+00:00",
+    "confirmed_at": "2026-08-04T08:44:32+00:00"
+  },
+  {
+    "id": "fp-004",
+    "target": "http://127.0.0.1:8002",
+    "endpoint": "/api/users",
+    "status": "confirmed",
+    "reason": "manual review: plain REST endpoints, not LLMs",
+    "reasons": [
+      "flagged on request-side hints only, no response evidence"
+    ],
+    "confidence": 26,
+    "signals": [
+      "body_messages",
+      "body_llm_fields"
+    ],
+    "created": "2026-08-04T08:44:25+00:00",
+    "last_seen": "2026-08-04T08:44:25+00:00",
+    "confirmed_at": "2026-08-04T08:44:32+00:00"
+  }
+]
